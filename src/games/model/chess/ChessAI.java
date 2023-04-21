@@ -1,7 +1,22 @@
 package games.model.chess;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.Jsoup;
+
+import java.io.IOException;
+
+import games.controller.Controller;
+
 public class ChessAI
 {
+	
+	private Controller app;
+	
+	public ChessAI(Controller app)
+	{
+		this.app = app;
+	}
+	
 	public String getNextMove()
 	{
 		String fen = createFEN(true);
@@ -15,11 +30,21 @@ public class ChessAI
 		{
 			space = "%20";
 		}
-		return space;
+		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" + space + "b" + space + "-" + space + "-" + space + "-" + space + "-";
+		return fen;
 	}
 	
 	private String accessPage(String url)
 	{
+		try
+		{
+			Document page = Jsoup.connect(url).get();
+			System.out.println(page.body());
+		}
+		catch (IOException exception)
+		{
+			app.handleError(exception);
+		}
 		return "";
 	}
 }
