@@ -5,7 +5,7 @@ public class ChessAI
 	public String getNextMove()
 	{
 		String fen = createFEN(true);
-		return accessPage("https://www.chessdb.cn/cdb.php?action=querybest&board=" + fen)
+		return accessPage("https://www.chessdb.cn/cdb.php?action=querybest&board=" + fen);
 	}
 	
 	private String createFEN(boolean isWebReady)
@@ -16,5 +16,10 @@ public class ChessAI
 			space = "%20";
 		}
 		return space;
+	}
+	
+	private String accessPage(String url)
+	{
+		return "";
 	}
 }
