@@ -12,7 +12,39 @@ public class ChessBoard
 	
 	public String getAsFEN()
 	{
-		return "";
+		String fen = "";
+		
+		for (int row = 0; row < board.length; row++)
+		{
+			int numEmpty = 0;
+			for (int col = 0; col < board[0].length; col++)
+			{
+				if (board[row][col].getAsChar().equalsIgnoreCase("e"))
+				{
+					numEmpty++;
+				}
+				else
+				{
+					if (numEmpty > 0)
+					{
+						fen += numEmpty;
+						numEmpty = 0;
+					}
+					fen += board[row][col].getAsChar();
+				}
+			}
+			if (numEmpty > 0)
+			{
+				fen += numEmpty;
+			}
+			if (row != board.length - 1)
+			{
+				fen += "/";
+			}
+			
+		}
+		
+		return fen;
 	}
 	
 	private void setupBoard()
