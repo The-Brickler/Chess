@@ -11,10 +11,12 @@ public class ChessAI
 {
 	
 	private Controller app;
+	private ChessBoard board;
 	
-	public ChessAI(Controller app)
+	public ChessAI(Controller app, ChessBoard board)
 	{
 		this.app = app;
+		this.board = board;
 	}
 	
 	public String getNextMove()
@@ -30,12 +32,15 @@ public class ChessAI
 		{
 			space = "%20";
 		}
-		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" + space + "b" + space + "-" + space + "-" + space + "0" + space + "0";
+		String fen = board.getAsFEN();
+		fen += space + "w" + space + "-" + space + "-" + space + "0" + space + "0";
+		System.out.println(fen);
 		return fen;
 	}
 	
 	private String accessPage(String url)
 	{
+		System.out.println(url);
 		String output = "";
 		try
 		{
