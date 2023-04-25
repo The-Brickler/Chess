@@ -30,21 +30,24 @@ public class ChessAI
 		{
 			space = "%20";
 		}
-		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" + space + "b" + space + "-" + space + "-" + space + "-" + space + "-";
+		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" + space + "b" + space + "-" + space + "-" + space + "0" + space + "0";
 		return fen;
 	}
 	
 	private String accessPage(String url)
 	{
+		String output = "";
 		try
 		{
 			Document page = Jsoup.connect(url).get();
-			System.out.println(page.body());
+			String text = page.text();
+			text = text.substring(5);
+			output = text;
 		}
 		catch (IOException exception)
 		{
 			app.handleError(exception);
 		}
-		return "";
+		return output;
 	}
 }
