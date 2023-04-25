@@ -1,6 +1,6 @@
 package games.model.chess;
 
-public class ChessQueen
+public class ChessQueen extends ChessPiece
 {
 
 }
