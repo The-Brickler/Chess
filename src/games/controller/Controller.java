@@ -13,10 +13,7 @@ public class Controller
 	public void start()
 	{	
 		board = new ChessBoard();
-		System.out.println(board.getAsFEN());
-		
-		ai = new ChessAI(this, this.board);
-		System.out.println(ai.getNextMove());
+		System.out.println(board.getAsFormattedString());
 	}
 	
 	public void handleError(Exception error)
