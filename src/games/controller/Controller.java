@@ -11,12 +11,12 @@ public class Controller
 	private ChessBoard board;
 	
 	public void start()
-	{
-		ai = new ChessAI(this);
-		ai.getNextMove();
-		
+	{	
 		board = new ChessBoard();
 		System.out.println(board.getAsFEN());
+		
+		ai = new ChessAI(this, this.board);
+		System.out.println(ai.getNextMove());
 	}
 	
 	public void handleError(Exception error)
