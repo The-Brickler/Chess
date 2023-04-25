@@ -47,6 +47,25 @@ public class ChessBoard
 		return fen;
 	}
 	
+	public String getAsFormattedString()
+	{
+		String output = "";
+		for (int row = 0; row < board.length; row++)
+		{
+			for (int col = 0; col < board[0].length; col++)
+			{
+				String pieceChar = board[row][col].getAsChar();
+				if (pieceChar.equalsIgnoreCase("e"))
+				{
+					pieceChar = " ";
+				}
+				output += "[ " + pieceChar + " ] ";
+			}
+			output += "\n";
+		}
+		return output;
+	}
+	
 	private void setupBoard()
 	{
 		for (int row = 0; row < board.length; row++)
@@ -97,6 +116,23 @@ public class ChessBoard
 		}
 	}
 	
+	public void makeMove(String move)
+	{
+		int firstRow = Integer.parseInt(move.substring(1, 2));
+		int firstCol = board[0].length - letterToNumber(move.charAt(0));
+		int secondRow = Integer.parseInt(move.substring(3));
+		int secondCol = board[0].length - letterToNumber(move.charAt(2));
+		
+		ChessPiece target = board[firstRow][firstCol];
+		
+		board[secondRow][secondCol] = target;
+		board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM);
+	}
 	
+	private int letterToNumber(char letter)
+	{
+		int number = letter;
+		return number;
+	}
 	
 }
