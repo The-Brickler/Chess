@@ -22,7 +22,7 @@ public class ChessAI
 	public String getNextMove()
 	{
 		String fen = createFEN(true);
-		return accessPage("https://www.chessdb.cn/cdb.php?action=querybest&board=" + fen);
+		return accessPage("https://www.chessdb.cn/cdb.php?action=queryall&board=" + fen);
 	}
 	
 	private String createFEN(boolean isWebReady)
@@ -34,7 +34,6 @@ public class ChessAI
 		}
 		String fen = board.getAsFEN();
 		fen += space + "w" + space + "-" + space + "-" + space + "0" + space + "0";
-		System.out.println(fen);
 		return fen;
 	}
 	
@@ -46,13 +45,14 @@ public class ChessAI
 		{
 			Document page = Jsoup.connect(url).get();
 			String text = page.text();
-			text = text.substring(5);
+			//text = text.substring(5);
 			output = text;
 		}
 		catch (IOException exception)
 		{
 			app.handleError(exception);
 		}
+		System.out.println(output);
 		return output;
 	}
 }
