@@ -118,10 +118,10 @@ public class ChessBoard
 	
 	public void makeMove(String move)
 	{
-		int firstRow = Integer.parseInt(move.substring(1, 2));
-		int firstCol = board[0].length - letterToNumber(move.charAt(0));
-		int secondRow = Integer.parseInt(move.substring(3));
-		int secondCol = board[0].length - letterToNumber(move.charAt(2));
+		int firstRow = board.length - Integer.parseInt(move.substring(1, 2));
+		int firstCol = letterToNumber(move.charAt(0));
+		int secondRow = board.length - Integer.parseInt(move.substring(3));
+		int secondCol = letterToNumber(move.charAt(2));
 		
 		ChessPiece target = board[firstRow][firstCol];
 		
@@ -131,7 +131,7 @@ public class ChessBoard
 	
 	private int letterToNumber(char letter)
 	{
-		int number = letter;
+		int number = letter - 'a';
 		return number;
 	}
 	

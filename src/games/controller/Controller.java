@@ -14,6 +14,20 @@ public class Controller
 	{	
 		board = new ChessBoard();
 		System.out.println(board.getAsFormattedString());
+		
+		ai = new ChessAI(this, board);
+		
+		board.makeMove("f2f4");
+		
+		System.out.println(board.getAsFormattedString());
+		
+		board.makeMove("a7a5");
+		
+		System.out.println(board.getAsFormattedString());
+		
+		System.out.println(ai.getNextMove());
+		
+		//System.out.println(board.getAsFormattedString());
 	}
 	
 	public void handleError(Exception error)
