@@ -3,6 +3,7 @@ package games.model.chess;
 import java.io.IOException;
 
 import games.controller.Controller;
+import games.controller.ProcessController;
 
 public class ChessAI
 {
@@ -10,26 +11,22 @@ public class ChessAI
 	private Controller app;
 	private ChessBoard board;
 	
-	private Process stockFish;
+	private ProcessController process;
 	
 	public ChessAI(Controller app, ChessBoard board)
 	{
 		this.app = app;
 		this.board = board;
 		
-		try
-		{
-			stockFish = new ProcessBuilder("./src/stockfish/15.1/bin/stockfish").start();
-		}
-		catch (IOException error)
-		{
-			app.handleError(error);
-		}
+		process = new ProcessController(app, "./src/stockfish/15.1/bin/stockfish");
 	}
 	
 	public String getNextMove()
 	{
-		System.out.println(stockFish.getOutputStream());
+		process.sendCommand("ucinewgame");
+		process.sendCommand("go movetime 1000");
+		
+		System.out.println(process.getLine());
 		
 		return "";
 	}
