@@ -14,7 +14,14 @@ public class Controller
 	{	
 		ai = new ChessAI(this, board);
 		
-		ai.getNextMove();
+		try
+		{
+			ai.getNextMove();
+		}
+		catch (InterruptedException error)
+		{
+			handleError(error);
+		}
 	}
 	
 	public void handleError(Exception error)
