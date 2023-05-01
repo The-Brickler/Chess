@@ -13,16 +13,20 @@ public class ChessAI
 	private Controller app;
 	private ChessBoard board;
 	
-	public ChessAI(Controller app, ChessBoard board)
+	private String team;
+	
+	public ChessAI(Controller app, ChessBoard board, String team)
 	{
 		this.app = app;
 		this.board = board;
+		this.team = team;
 	}
 	
 	public String getNextMove()
 	{
 		String fen = createFEN(true);
-		return accessPage("https://www.chessdb.cn/cdb.php?action=queryall&board=" + fen);
+		String nextMove = accessPage("https://www.chessdb.cn/cdb.php?action=querybest&board=" + fen);
+		return nextMove.substring(5);
 	}
 	
 	private String createFEN(boolean isWebReady)
@@ -33,7 +37,7 @@ public class ChessAI
 			space = "%20";
 		}
 		String fen = board.getAsFEN();
-		fen += space + "w" + space + "-" + space + "-" + space + "0" + space + "0";
+		fen += space + team + space + "-" + space + "-" + space + "0" + space + "0";
 		return fen;
 	}
 	

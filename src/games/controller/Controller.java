@@ -7,7 +7,8 @@ import javax.swing.JOptionPane;
 
 public class Controller
 {
-	private ChessAI ai;
+	private ChessAI whiteAI;
+	private ChessAI blackAI;
 	private ChessBoard board;
 	
 	public void start()
@@ -15,17 +16,20 @@ public class Controller
 		board = new ChessBoard();
 		System.out.println(board.getAsFormattedString());
 		
-		ai = new ChessAI(this, board);
+		whiteAI = new ChessAI(this, board, "w");
+		blackAI = new ChessAI(this, board, "b");
 		
-		board.makeMove("f2f4");
+		int counter = 0;
 		
-		System.out.println(board.getAsFormattedString());
-		
-		board.makeMove("a7a5");
-		
-		System.out.println(board.getAsFormattedString());
-		
-		System.out.println(ai.getNextMove());
+		while (counter < 100)
+		{
+			board.makeMove(whiteAI.getNextMove());
+			System.out.println(board.getAsFormattedString());
+			board.makeMove(blackAI.getNextMove());
+			System.out.println(board.getAsFormattedString());
+			
+			counter++;
+		}
 		
 		//System.out.println(board.getAsFormattedString());
 	}
