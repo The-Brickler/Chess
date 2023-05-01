@@ -1,10 +1,12 @@
 package games.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 public class ProcessController
 {
@@ -12,7 +14,7 @@ public class ProcessController
 	
 	private Process process;
 	private BufferedReader input;
-	private OutputStream output;
+	private BufferedWriter output;
 	private Controller app;
 	
 	public ProcessController(Controller app, String file)
@@ -25,7 +27,7 @@ public class ProcessController
 		{
 			process = runtime.exec(file);
 			input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			output = process.getOutputStream();
+			output = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 		}
 		catch (IOException error)
 		{
@@ -38,7 +40,7 @@ public class ProcessController
 		
 	}
 	
-	public String readLine()
+	public String getLine()
 	{
 		String line;
 		try
@@ -52,5 +54,24 @@ public class ProcessController
 		}
 		
 		return line;
+	}
+	
+	public void sendCommand(String command)
+	{
+		try
+		{
+			output.write(command);
+			output.flush();
+		}
+		catch (IOException error)
+		{
+			app.handleError(error);
+		}
+		
+	}
+	
+	public boolean isAlive()
+	{
+		return process.isAlive();
 	}
 }
