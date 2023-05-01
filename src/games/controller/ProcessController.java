@@ -13,7 +13,6 @@ public class ProcessController
 	private Runtime runtime;
 	
 	private Process process;
-	private BufferedReader input;
 	private BufferedWriter output;
 	private Controller app;
 	
@@ -26,7 +25,6 @@ public class ProcessController
 		try
 		{
 			process = runtime.exec(file);
-			input = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			output = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 		}
 		catch (IOException error)
@@ -35,32 +33,39 @@ public class ProcessController
 		}
 	}
 	
-	public void sendInput(String textToSend)
-	{
-		
-	}
-	
 	public String getLine()
 	{
-		String line;
+		InputStream input = process.getInputStream();
+		String data = "";
 		try
 		{
-			line = input.readLine();
+			while (input.available() > 0)
+			{
+				System.out.println(input.available());
+				
+				int value = input.read();
+				if (value > -1)
+				{
+					data += (char) value;
+				}
+			}
+			
+			System.out.println("end of while");
+			
 		}
 		catch (IOException error)
 		{
-			line = "";
 			app.handleError(error);
 		}
 		
-		return line;
+		return data;
 	}
 	
 	public void sendCommand(String command)
 	{
 		try
 		{
-			output.write(command);
+			output.write(command, 0, command.length());
 			output.flush();
 		}
 		catch (IOException error)

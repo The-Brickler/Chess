@@ -21,11 +21,15 @@ public class ChessAI
 		process = new ProcessController(app, "./src/stockfish/15.1/bin/stockfish");
 	}
 	
-	public String getNextMove()
+	public String getNextMove() throws InterruptedException
 	{
 		process.sendCommand("ucinewgame");
+		Thread.sleep(1500);
 		process.sendCommand("go movetime 1000");
 		
+		//System.out.println(process.getLine());
+		Thread.sleep(1500);
+
 		System.out.println(process.getLine());
 		
 		return "";
