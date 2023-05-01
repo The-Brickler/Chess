@@ -13,6 +13,8 @@ public class Controller
 	public void start()
 	{	
 		ai = new ChessAI(this, board);
+		
+		ai.getNextMove();
 	}
 	
 	public void handleError(Exception error)
