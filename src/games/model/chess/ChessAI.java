@@ -1,8 +1,5 @@
 package games.model.chess;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.Jsoup;
-
 import java.io.IOException;
 
 import games.controller.Controller;
@@ -13,50 +10,18 @@ public class ChessAI
 	private Controller app;
 	private ChessBoard board;
 	
-	private String team;
-	
-	public ChessAI(Controller app, ChessBoard board, String team)
+	public ChessAI(Controller app, ChessBoard board)
 	{
 		this.app = app;
 		this.board = board;
-		this.team = team;
 	}
 	
 	public String getNextMove()
 	{
-		String fen = createFEN(true);
-		String nextMove = accessPage("https://www.chessdb.cn/cdb.php?action=querybest&board=" + fen);
-		return nextMove.substring(5);
+		return "";
 	}
 	
-	private String createFEN(boolean isWebReady)
-	{
-		String space = " ";
-		if (isWebReady)
-		{
-			space = "%20";
-		}
-		String fen = board.getAsFEN();
-		fen += space + team + space + "-" + space + "-" + space + "0" + space + "0";
-		return fen;
-	}
 	
-	private String accessPage(String url)
-	{
-		System.out.println(url);
-		String output = "";
-		try
-		{
-			Document page = Jsoup.connect(url).get();
-			String text = page.text();
-			//text = text.substring(5);
-			output = text;
-		}
-		catch (IOException exception)
-		{
-			app.handleError(exception);
-		}
-		System.out.println(output);
-		return output;
-	}
+	
+
 }
