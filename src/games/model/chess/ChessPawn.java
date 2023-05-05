@@ -21,4 +21,10 @@ public class ChessPawn extends ChessPiece
 		
 		return letter;
 	}
+
+	@Override
+	public boolean validateMove(int[] firstPos, int[] secondPos)
+	{
+		return false;
+	}
 }

@@ -14,4 +14,6 @@ public abstract class ChessPiece
 	}
 	
 	public abstract String getAsChar();
+	
+	public abstract boolean validateMove(int [] firstPos, int [] secondPos);
 }
