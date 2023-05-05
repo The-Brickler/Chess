@@ -1,82 +1,85 @@
 package games.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+/**
+ * ProcessController will start a process, and handles reading / writing to the console
+ * 
+ * @author camibrunson
+ *
+ */
 public class ProcessController
 {
-	private Runtime runtime;
-	
 	private Process process;
-	private BufferedWriter output;
+	private BufferedReader reader;
+	private OutputStreamWriter writer;
+	
+	private String path;
+	
 	private Controller app;
 	
-	public ProcessController(Controller app, String file)
+	/**
+	 * The constructor will initialize the path variable
+	 * 
+	 * @param path
+	 * 				The file path of the process to be used
+	 * @param app
+	 * 				Reference to the main app Controller, used for error handling
+	 */
+	public ProcessController(String path, Controller app)
 	{
+		this.path = path;
 		this.app = app;
-		
-		runtime = Runtime.getRuntime();
-		
-		try
-		{
-			process = runtime.exec(file);
-			output = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-		}
-		catch (IOException error)
-		{
-			app.handleError(error);
-		}
 	}
 	
-	public String getLine()
+	/**
+	 * This method will start the process and initialize the reader and writer
+	 * 
+	 * @return True if the process starts successfully, False if it does not
+	 */
+	public boolean start()
 	{
-		InputStream input = process.getInputStream();
-		String data = "";
 		try
 		{
-			while (input.available() > 0)
-			{
-				System.out.println(input.available());
-				
-				int value = input.read();
-				if (value > -1)
-				{
-					data += (char) value;
-				}
-			}
-			
-			System.out.println("end of while");
-			
+			process = Runtime.getRuntime().exec(path);
+			reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			writer = new OutputStreamWriter(process.getOutputStream());
+		}
+		catch (IOException error)
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * This method will close the process and it's readers and writers
+	 */
+	public void stop()
+	{
+		try
+		{
+			sendCommand("quit");
+			reader.close();
+			writer.close();
 		}
 		catch (IOException error)
 		{
 			app.handleError(error);
 		}
-		
-		return data;
 	}
 	
 	public void sendCommand(String command)
 	{
-		try
-		{
-			output.write(command, 0, command.length());
-			output.flush();
-		}
-		catch (IOException error)
-		{
-			app.handleError(error);
-		}
-		
+
 	}
 	
-	public boolean isAlive()
+	public String getOutput(int delay)
 	{
-		return process.isAlive();
+		return null;
 	}
 }
