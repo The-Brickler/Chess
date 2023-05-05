@@ -80,7 +80,7 @@ public class ChessBoard
 				
 				if (row == 1 || row == 6)
 				{
-					board[row][col] = new ChessPawn(team);
+					board[row][col] = new ChessPawn(team, this);
 				}
 				else if (row == 0 || row == 7)
 				{
@@ -88,29 +88,29 @@ public class ChessBoard
 					{
 					case 0:
 					case 7:
-						board[row][col] = new ChessRook(team);
+						board[row][col] = new ChessRook(team, this);
 						break;
 					case 1:
 					case 6:
-						board[row][col] = new ChessKnight(team);
+						board[row][col] = new ChessKnight(team, this);
 						break;
 					case 2:
 					case 5:
-						board[row][col] = new ChessBishop(team);
+						board[row][col] = new ChessBishop(team, this);
 						break;
 					case 3:
-						board[row][col] = new ChessKing(team);
+						board[row][col] = new ChessKing(team, this);
 						break;
 					case 4:
-						board[row][col] = new ChessQueen(team);
+						board[row][col] = new ChessQueen(team, this);
 						break;
 					default:
-						board[row][col] = new ChessEmpty(ChessPiece.NOTEAM);
+						board[row][col] = new ChessEmpty(ChessPiece.NOTEAM, this);
 					}
 				}
 				else
 				{
-					board[row][col] = new ChessEmpty(ChessPiece.NOTEAM);
+					board[row][col] = new ChessEmpty(ChessPiece.NOTEAM, this);
 				}
 			}
 		}
@@ -126,10 +126,38 @@ public class ChessBoard
 		ChessPiece target = board[firstRow][firstCol];
 		
 		board[secondRow][secondCol] = target;
-		board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM);
+		board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM, this);
 	}
 	
-
+	public int [] getPositionOfPiece(ChessPiece piece)
+	{
+		int position [] = {-1, -1};
+		
+		for (int row = 0; row < board.length; row++)
+		{
+			for (int col = 0; col < board[row].length; col++)
+			{
+				if (board[row][col].equals(piece))
+				{
+					position[0] = row;
+					position[1] = col;
+				}
+			}
+		}
+		
+		return position;
+	}
+	
+	public ChessPiece getPieceAt(int [] position)
+	{
+		//Bounds Check
+		if (position[0] >= board.length || position[0] < 0 || position[1] >= board[0].length || position[1] < 0)
+		{
+			return null;
+		}
+		
+		return board[position[0]][position[1]];
+	}
 	
 	private int letterToNumber(char letter)
 	{
