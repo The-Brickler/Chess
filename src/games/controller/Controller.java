@@ -24,7 +24,7 @@ public class Controller
 			try
 			{
 				System.out.println(board.getAsFormattedString());
-				String input = scanner.nextLine();
+				String input = scanner.nextLine().toLowerCase();
 				makePlayerMove(input);
 				makeAIMove();
 			}

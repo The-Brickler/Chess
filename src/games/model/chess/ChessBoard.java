@@ -129,6 +129,8 @@ public class ChessBoard
 		board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM);
 	}
 	
+
+	
 	private int letterToNumber(char letter)
 	{
 		int number = letter - 'a';
