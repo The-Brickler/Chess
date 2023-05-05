@@ -159,6 +159,32 @@ public class ChessBoard
 		return board[position[0]][position[1]];
 	}
 	
+	public boolean promotePieceAt(int [] position, String newPiece)
+	{
+		if (board[position[0]][position[1]].canPromote())
+		{
+			int team = board[position[0]][position[1]].getTeam();
+			if (newPiece.equals("queen"))
+			{
+				board[position[0]][position[1]] = new ChessQueen(team, this);
+			}
+			if (newPiece.equals("rook"))
+			{
+				board[position[0]][position[1]] = new ChessRook(team, this);
+			}
+			if (newPiece.equals("knight"))
+			{
+				board[position[0]][position[1]] = new ChessKnight(team, this);
+			}
+			if (newPiece.equals("bishop"))
+			{
+				board[position[0]][position[1]] = new ChessBishop(team, this);
+			}
+		}
+		
+		return false;
+	}
+	
 	private int letterToNumber(char letter)
 	{
 		int number = letter - 'a';
