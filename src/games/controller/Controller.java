@@ -12,16 +12,9 @@ public class Controller
 	
 	public void start()
 	{	
+		board = new ChessBoard();
 		ai = new ChessAI(this, board);
-		
-		try
-		{
-			ai.getNextMove();
-		}
-		catch (InterruptedException error)
-		{
-			handleError(error);
-		}
+
 	}
 	
 	public void handleError(Exception error)
