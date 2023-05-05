@@ -73,9 +73,23 @@ public class ProcessController
 		}
 	}
 	
+	/**
+	 * Sends a command to the process
+	 * 
+	 * @param command
+	 * 					The command to be sent
+	 */
 	public void sendCommand(String command)
 	{
-
+		try
+		{
+			writer.write(command + "\n");
+			writer.flush();
+		}
+		catch (IOException error)
+		{
+			app.handleError(error);
+		}
 	}
 	
 	public String getOutput(int delay)
