@@ -43,6 +43,11 @@ public class ChessAI
 		return output;
 	}
 	
+	public void closeProcess()
+	{
+		process.stop();
+	}
+	
 	
 	
 

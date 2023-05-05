@@ -18,14 +18,18 @@ public class Controller
 		ai = new ChessAI(this, board);
 		
 		Scanner scanner = new Scanner(System.in);
+		String input = "";
 		
-		while (true)
+		while (!input.equalsIgnoreCase("exit"))
 		{
 			try
 			{
 				System.out.println(board.getAsFormattedString());
-				String input = scanner.nextLine().toLowerCase();
-				makePlayerMove(input);
+				input = scanner.nextLine().toLowerCase();
+				if (!input.equalsIgnoreCase("exit"))
+				{
+					makePlayerMove(input);
+				}
 				makeAIMove();
 			}
 			catch (InterruptedException error)
@@ -33,6 +37,9 @@ public class Controller
 				handleError(error);
 			}
 		}
+		
+		ai.closeProcess();
+		scanner.close();
 	}
 	
 	public void handleError(Exception error)
