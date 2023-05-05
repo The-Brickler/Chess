@@ -90,10 +90,50 @@ public class ProcessController
 		{
 			app.handleError(error);
 		}
+		catch (NullPointerException error)
+		{
+			app.handleError(error);
+		}
 	}
 	
+	/**
+	 * Reads all the new text since the last time it was read from
+	 * 
+	 * 
+	 * 
+	 * @param delay
+	 * 				Number of milliseconds to wait before reading
+	 * @return The output from the process
+	 * @
+	 */
 	public String getOutput(int delay)
 	{
-		return null;
+		String output = "";
+		
+		try
+		{
+			Thread.sleep(delay);
+			sendCommand("isready");
+			String text = reader.readLine();
+			while (!text.equals("readyok"))
+			{
+				output += text + "\n";
+				text = reader.readLine();
+			}
+		}
+		catch (IOException error)
+		{
+			app.handleError(error);
+		}
+		catch (InterruptedException error)
+		{
+			app.handleError(error);
+		}
+		catch (NullPointerException error)
+		{
+			app.handleError(error);
+		}
+		
+		return output;
 	}
 }
