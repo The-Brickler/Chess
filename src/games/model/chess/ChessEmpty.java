@@ -4,9 +4,9 @@ public class ChessEmpty extends ChessPiece
 {
 	private int team;
 	
-	public ChessEmpty(int team)
+	public ChessEmpty(int team, ChessBoard board)
 	{
-		super(team);
+		super(team, board);
 		this.team = team;
 	}
 	

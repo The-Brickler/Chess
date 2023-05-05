@@ -4,9 +4,9 @@ public class ChessRook extends ChessPiece
 {
 	private int team;
 	
-	public ChessRook(int team)
+	public ChessRook(int team, ChessBoard board)
 	{
-		super(team);
+		super(team, board);
 		this.team = team;
 	}
 	
