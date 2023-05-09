@@ -22,20 +22,10 @@ public class Controller
 		
 		while (!input.equalsIgnoreCase("exit"))
 		{
-			try
-			{
-				System.out.println(board.getAsFormattedString());
-				input = scanner.nextLine().toLowerCase();
-				if (!input.equalsIgnoreCase("exit"))
-				{
-					makePlayerMove(input);
-				}
-				makeAIMove();
-			}
-			catch (InterruptedException error)
-			{
-				handleError(error);
-			}
+			System.out.println(board.getAsFormattedString());
+			input = scanner.nextLine();
+			
+			board.makeMove(input);
 		}
 		
 		ai.closeProcess();

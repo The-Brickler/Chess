@@ -125,8 +125,19 @@ public class ChessBoard
 		
 		ChessPiece target = board[firstRow][firstCol];
 		
-		board[secondRow][secondCol] = target;
-		board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM, this);
+		int [] firstPos = {firstRow, firstCol};
+		int [] secondPos = {secondRow, secondCol};
+		
+		if (target.validateMove(firstPos, secondPos))
+		{
+			System.out.println("VALID");
+			board[secondRow][secondCol] = target;
+			board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM, this);
+		}
+		else
+		{
+			System.out.println("INVALID");
+		}
 	}
 	
 	public int [] getPositionOfPiece(ChessPiece piece)
