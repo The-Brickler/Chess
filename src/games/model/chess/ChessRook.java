@@ -50,7 +50,7 @@ public class ChessRook extends ChessPiece
 			}
 			else if (colDifference == 0 && rowDifference != 1)
 			{
-				moveDirection = rowDifference / Math.abs(colDifference);
+				moveDirection = rowDifference / Math.abs(rowDifference);
 			}
 			
 			for (int index = firstPos[axis] + moveDirection; index != secondPos[axis]; index += moveDirection)
