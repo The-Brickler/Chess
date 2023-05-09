@@ -28,34 +28,25 @@ public class ChessRook extends ChessPiece
 		
 		if ((rowDifference == 0 || colDifference == 0) && rowDifference != colDifference)
 		{
-			ChessPiece target = super.getPieceAtPosition(secondPos);
-			
-			if (target.getTeam() == super.team)
-			{
-				return false;
-			}
-			
-			else if (Math.abs(rowDifference) == 1 || Math.abs(colDifference) == 1)
-			{
-				return true;
-			}
-			
-			
-			int moveDirection = 0;
+			ChessPiece target = null;
+			int direction = 0;
 			int axis = 0;
-			if (rowDifference == 0 && colDifference != 1)
+			
+			if (rowDifference != 0)
 			{
-				moveDirection = colDifference / Math.abs(colDifference);
+				direction = rowDifference / Math.abs(rowDifference);
+			}
+			else
+			{
+				direction = colDifference / Math.abs(colDifference);
 				axis = 1;
 			}
-			else if (colDifference == 0 && rowDifference != 1)
-			{
-				moveDirection = rowDifference / Math.abs(rowDifference);
-			}
 			
-			for (int index = firstPos[axis] + moveDirection; index != secondPos[axis]; index += moveDirection)
+			int index = firstPos[axis] + direction;
+			
+			while (index != secondPos[axis])
 			{
-				int [] scanPosition = new int[2];
+				int [] scanPosition;
 				
 				if (axis == 0)
 				{
@@ -66,18 +57,23 @@ public class ChessRook extends ChessPiece
 					scanPosition = new int [] {firstPos[0], index};
 				}
 				
-				ChessPiece scanPiece = super.getPieceAtPosition(scanPosition);
-				if (!scanPiece.getClass().getSimpleName().equals("ChessEmpty"))
+				target = getPieceAtPosition(scanPosition);
+				
+				if (!target.getClass().getSimpleName().equals("ChessEmpty"))
 				{
 					return false;
 				}
+				
+				index += direction;
+			}
+			
+			target = getPieceAtPosition(secondPos);
+			if (target.getTeam() != team)
+			{
+				return true;
 			}
 		}
-		else
-		{
-			return false;
-		}
 		
-		return true;
+		return false;
 	}
 }
