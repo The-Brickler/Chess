@@ -25,6 +25,13 @@ private int team;
 	@Override
 	public boolean validateMove(int[] firstPos, int[] secondPos)
 	{
+		int rowDifference = secondPos[0] - firstPos[0];
+		int colDifference = secondPos[1] - firstPos[1];
+		
+		if (Math.abs(rowDifference) < 2 && Math.abs(colDifference) < 2)
+		{
+			return checkBasicMovement(firstPos, secondPos, true, true);
+		}
 		return false;
 	}
 }
