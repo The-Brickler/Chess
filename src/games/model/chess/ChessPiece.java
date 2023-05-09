@@ -57,6 +57,53 @@ public abstract class ChessPiece
 		return board.getPieceAt(position);
 	}
 	
+	protected boolean checkBasicMovement(int [] firstPos, int [] secondPos, boolean allowStraight, boolean allowDiagonal)
+	{
+		int rowDifference = secondPos[0] - firstPos[0];
+		int colDifference = secondPos[1] - firstPos[1];
+		
+		if (allowDiagonal && (Math.abs(rowDifference) == Math.abs(colDifference) && rowDifference != 0) ||
+			allowStraight && ((rowDifference == 0 || colDifference == 0) && rowDifference != colDifference))
+		{
+			ChessPiece target = null;
+			int verticalDirection = 0;
+			if (rowDifference != 0)
+			{
+				verticalDirection = rowDifference / Math.abs(rowDifference);
+			}
+			int horizontalDirection = 0;
+			if (colDifference != 0)
+			{
+				horizontalDirection = colDifference / Math.abs(colDifference);
+			}
+			
+			int row = firstPos[0] + verticalDirection;
+			int col = firstPos[1] + horizontalDirection;
+			
+			while (row != secondPos[0])
+			{
+				int [] scanPosition = {row, col};
+				target = getPieceAtPosition(scanPosition);
+				
+				if (!target.getClass().getSimpleName().equals("ChessEmpty"))
+				{
+					return false;
+				}
+				
+				row += verticalDirection;
+				col += horizontalDirection;
+			}
+			
+			target = getPieceAtPosition(secondPos);
+			if (target.getTeam() != team)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public abstract String getAsChar();
 	
 	public abstract boolean validateMove(int [] firstPos, int [] secondPos);
