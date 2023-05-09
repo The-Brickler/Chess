@@ -25,6 +25,20 @@ public class ChessKnight extends ChessPiece
 	@Override
 	public boolean validateMove(int[] firstPos, int[] secondPos)
 	{
+		int rowDifference = secondPos[0] - firstPos[0];
+		int colDifference = secondPos[1] - firstPos[1];
+		
+		int moveDistance = Math.abs(rowDifference) + Math.abs(colDifference);
+		
+		if (moveDistance == 3 && Math.abs(rowDifference) < 3 && Math.abs(colDifference) < 3)
+		{
+			ChessPiece target = getPieceAtPosition(secondPos);
+			if (target.getTeam() != team)
+			{
+				return true;
+			}
+		}
+		
 		return false;
 	}
 }
