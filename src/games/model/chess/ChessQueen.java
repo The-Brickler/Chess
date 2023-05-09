@@ -25,6 +25,6 @@ private int team;
 	@Override
 	public boolean validateMove(int[] firstPos, int[] secondPos)
 	{
-		return false;
+		return checkBasicMovement(firstPos, secondPos, true, true);
 	}
 }
