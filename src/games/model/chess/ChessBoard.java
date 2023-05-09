@@ -72,6 +72,7 @@ public class ChessBoard
 		{
 			for (int col = 0; col < board[0].length; col++)
 			{
+				//WHITE ON BOTTOM , BLACK ON TOP
 				int team = ChessPiece.BLACK;
 				if (row > board.length/2)
 				{
@@ -131,6 +132,7 @@ public class ChessBoard
 		if (target.validateMove(firstPos, secondPos))
 		{
 			System.out.println("VALID");
+			target.madeMove();
 			board[secondRow][secondCol] = target;
 			board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM, this);
 		}
