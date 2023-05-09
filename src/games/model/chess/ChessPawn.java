@@ -23,25 +23,42 @@ public class ChessPawn extends ChessPiece
 	@Override
 	public boolean validateMove(int[] firstPos, int[] secondPos)
 	{
-		int rowDifference = Math.abs(firstPos[0] - secondPos[0]);
-		int colDifference = Math.abs(firstPos[1] - secondPos[1]);
-		ChessPiece target = super.getPieceAtPosition(secondPos);
+		int rowDifference = secondPos[0] - firstPos[0];
+		int colDifference = secondPos[1] - firstPos[1];
+		ChessPiece target = getPieceAtPosition(secondPos);
 		
-		if (colDifference > 0 && colDifference <= 1 && rowDifference == 1) // check for taking pieces diagonally
+		
+		if (Math.abs(colDifference) > 0 && Math.abs(colDifference) <= 1 && Math.abs(colDifference) == 1) // check for taking pieces diagonally
 		{	
-			if (!target.getClass().getSimpleName().equals("ChessEmpty") && target.getTeam() != super.team)
+			if ((rowDifference > 0 && team == BLACK) || (rowDifference < 0 && team == WHITE))
 			{
-				return true;
-			}
-		}
-		else if (colDifference == 0) //check that there's nothing in front for moving straight
-		{
-			if (target.getClass().getSimpleName().equals("ChessEmpty"))
-			{
-				if ((rowDifference == 1) || (rowDifference == 2 && super.moveCount == 0))
+				if (!target.getClass().getSimpleName().equals("ChessEmpty") && target.getTeam() != team)
 				{
 					return true;
 				}
+			}
+		}
+		else if (colDifference == 0) //vertical movement
+		{
+			if ((rowDifference > 0 && team == BLACK) || (rowDifference < 0 && team == WHITE))
+			{
+				if (Math.abs(rowDifference) == 2)
+				{
+					if (moveCount == 0)
+					{
+						ChessPiece between = getPieceAtOffset(rowDifference / Math.abs(rowDifference), 0);
+						if (between.getClass().getSimpleName().equals("ChessEmpty"))
+						{
+							return true;
+						}
+					}
+				}
+				else if (Math.abs(rowDifference) == 1 && (target.getClass().getSimpleName().equals("ChessEmpty")))
+				{
+						return true;
+				}
+				
+				
 			}
 		}
 		return false;
