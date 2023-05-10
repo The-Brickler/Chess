@@ -2,6 +2,7 @@ package games.controller;
 
 import games.model.chess.ChessAI;
 import games.model.chess.ChessBoard;
+import games.model.chess.ChessPiece;
 import games.view.ChessFrame;
 
 import java.util.Scanner;
@@ -17,8 +18,9 @@ public class Controller
 	
 	public void start()
 	{	
-		/*
+		
 		board = new ChessBoard();
+		
 		ai = new ChessAI(this, board);
 		
 		Scanner scanner = new Scanner(System.in);
@@ -28,13 +30,15 @@ public class Controller
 		{
 			System.out.println(board.getAsFormattedString());
 			input = scanner.nextLine();
+			if (!input.equalsIgnoreCase("exit"))
+			{		
+				board.makeMove(input);
+			}
 			
-			board.makeMove(input);
 		}
 		
 		ai.closeProcess();
 		scanner.close();
-		*/
 		
 		frame = new ChessFrame(this);
 	}
@@ -53,5 +57,27 @@ public class Controller
 	private void makePlayerMove(String move)
 	{
 		board.makeMove(move);
+	}
+	
+	public String getImageFor(int row, int col)
+	{
+		String imageName = "";
+		
+		ChessPiece piece = board.getPieceAt(new int [] {row, col});
+		if (piece.getTeam() != ChessPiece.NOTEAM)
+		{
+			if (piece.getTeam() == ChessPiece.WHITE)
+			{
+				imageName += "white_";
+			}
+			else
+			{
+				imageName += "black_";
+			}
+			
+			imageName += piece.getAsChar().toLowerCase();
+		}
+		
+		return imageName;
 	}
 }
