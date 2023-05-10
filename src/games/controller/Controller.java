@@ -2,6 +2,7 @@ package games.controller;
 
 import games.model.chess.ChessAI;
 import games.model.chess.ChessBoard;
+import games.view.ChessFrame;
 
 import java.util.Scanner;
 
@@ -12,8 +13,11 @@ public class Controller
 	private ChessAI ai;
 	private ChessBoard board;
 	
+	private ChessFrame frame;
+	
 	public void start()
 	{	
+		/*
 		board = new ChessBoard();
 		ai = new ChessAI(this, board);
 		
@@ -30,6 +34,9 @@ public class Controller
 		
 		ai.closeProcess();
 		scanner.close();
+		*/
+		
+		frame = new ChessFrame(this);
 	}
 	
 	public void handleError(Exception error)
