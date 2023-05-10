@@ -90,4 +90,12 @@ public class Controller
 		
 		return imageName;
 	}
+	
+	public boolean validate(int firstRow, int firstCol, int secondRow, int secondCol)
+	{
+		int [] firstPos = {firstRow, firstCol};
+		int [] secondPos = {secondRow, secondCol};
+		
+		return board.getPieceAt(firstPos).validateMove(firstPos, secondPos);
+	}
 }
