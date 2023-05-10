@@ -110,7 +110,7 @@ public class GamePanel extends JPanel
 				Color white = whiteTile;
 				Color black = blackTile;
 				
-				if (selected[0] == row && selected[1] == col)
+				if (selected[0] != -1 && selected[1] != -1 && app.validate(selected[0], selected[1], row, col))
 				{
 					white = whiteSelected;
 					black = blackSelected;
