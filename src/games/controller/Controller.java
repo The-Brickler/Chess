@@ -26,6 +26,7 @@ public class Controller
 		Scanner scanner = new Scanner(System.in);
 		String input = "";
 		
+		/*
 		while (!input.equalsIgnoreCase("exit"))
 		{
 			System.out.println(board.getAsFormattedString());
@@ -36,6 +37,7 @@ public class Controller
 			}
 			
 		}
+		*/
 		
 		ai.closeProcess();
 		scanner.close();
@@ -54,8 +56,16 @@ public class Controller
 		Thread.sleep(1500);
 	}
 	
-	private void makePlayerMove(String move)
+	public void playerMove(int firstRow, int firstCol, int secondRow, int secondCol)
 	{
+		firstRow = Math.abs(firstRow - 8);
+		secondRow = Math.abs(secondRow - 8);
+		
+		char firstColChar = (char) ('a' + firstCol);
+		char secondColChar = (char) ('a' + secondCol);
+		
+		String move = "" + firstColChar + firstRow + secondColChar + secondRow;
+		System.out.println(move);
 		board.makeMove(move);
 	}
 	

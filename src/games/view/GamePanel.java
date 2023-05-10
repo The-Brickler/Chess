@@ -21,11 +21,15 @@ public class GamePanel extends JPanel
 {
 	private static final Color whiteTile = new Color(219, 188, 147);
 	private static final Color blackTile = new Color(135, 107, 73);
+	private static final Color whiteSelected = new Color(178, 199, 145);
+	private static final Color blackSelected = new Color(73, 87, 51);
 	
 	private Controller app;
 	
 	private BufferedImage[][] imageArray;
 	private JLabel[][] labelArray;
+	
+	private int [] selected;
 	
 	public GamePanel(Controller app)
 	{
@@ -34,6 +38,8 @@ public class GamePanel extends JPanel
 		
 		imageArray = new BufferedImage[8][8];
 		labelArray = new JLabel[8][8];
+		
+		selected = new int [] {-1, -1};
 		
 		setupPanel();
 		setupListeners();
@@ -50,20 +56,29 @@ public class GamePanel extends JPanel
 			{
 				imageArray[row][col] = new BufferedImage(45, 45, BufferedImage.TYPE_INT_ARGB);
 				
-				Color background = blackTile;
+				Color white = whiteTile;
+				Color black = blackTile;
+				
+				if (selected[0] == row && selected[1] == col)
+				{
+					white = whiteSelected;
+					black = blackSelected;
+				}
+				
+				Color background = black;
 				
 				if (row % 2 == 0)
 				{
 					if (col % 2 == 0)
 					{
-						background = whiteTile;
+						background = white;
 					}
 				}
 				else
 				{
 					if (col % 2 == 1)
 					{
-						background = whiteTile;
+						background = white;
 					}
 				}
 				
@@ -92,6 +107,36 @@ public class GamePanel extends JPanel
 		{
 			for (int col = 0; col < imageArray[row].length; col++)
 			{
+				Color white = whiteTile;
+				Color black = blackTile;
+				
+				if (selected[0] == row && selected[1] == col)
+				{
+					white = whiteSelected;
+					black = blackSelected;
+				}
+				
+				Color background = black;
+				
+				if (row % 2 == 0)
+				{
+					if (col % 2 == 0)
+					{
+						background = white;
+					}
+				}
+				else
+				{
+					if (col % 2 == 1)
+					{
+						background = white;
+					}
+				}
+				
+				Graphics2D graphics = imageArray[row][col].createGraphics();
+				graphics.setColor(background);
+				graphics.fill(new Rectangle(0, 0, 45, 45));
+				
 				String fileName = app.getImageFor(row, col);
 				if (!fileName.equals(""))
 				{
@@ -99,7 +144,6 @@ public class GamePanel extends JPanel
 					try
 					{
 						BufferedImage image = ImageIO.read(new File(path));
-						Graphics2D graphics = imageArray[row][col].createGraphics();
 						graphics.drawImage(image, 0, 0, null);
 						repaint();
 					}
@@ -109,32 +153,34 @@ public class GamePanel extends JPanel
 						break;
 					}
 				}
-				else
-				{
-					Color background = blackTile;
+				
+				repaint();
 					
-					if (row % 2 == 0)
-					{
-						if (col % 2 == 0)
-						{
-							background = whiteTile;
-						}
-					}
-					else
-					{
-						if (col % 2 == 1)
-						{
-							background = whiteTile;
-						}
-					}
-					
-					Graphics2D graphics = imageArray[row][col].createGraphics();
-					graphics.setColor(background);
-					graphics.fill(new Rectangle(0, 0, 45, 45));
-					repaint();
-				}
 				
 			}
 		}
+	}
+	
+	public void select(int row, int col)
+	{
+		if (selected[0] == -1 || selected[1] == -1)
+		{
+			selected[0] = row;
+			selected[1] = col;
+		}
+		else if (selected[0] == row && selected[1] == col)
+		{
+			selected[0] = -1;
+			selected[1] = -1;
+		}
+		else
+		{
+			app.playerMove(selected[0], selected[1], row, col);
+			
+			selected[0] = -1;
+			selected[1] = -1;
+		}
+		
+		updateDisplay();
 	}
 }
