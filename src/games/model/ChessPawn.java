@@ -69,7 +69,7 @@ public class ChessPawn extends ChessPiece
 	{
 		int row = super.findPosition()[0];
 		
-		if ((row == 0 && super.team == super.BLACK) || (row == 7 && super.team == super.WHITE))
+		if ((row == 7 && super.team == super.BLACK) || (row == 0 && super.team == super.WHITE))
 		{
 			return true;
 		}

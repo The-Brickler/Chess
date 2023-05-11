@@ -101,7 +101,7 @@ public class GamePanel extends JPanel
 		
 	}
 	
-	private void updateDisplay()
+	public void updateDisplay()
 	{
 		for (int row = 0; row < imageArray.length; row++)
 		{
