@@ -42,15 +42,7 @@ public class ChessPanel extends JPanel
 			{
 				public void mouseClicked(MouseEvent click)
 				{
-					int x = click.getX();
-					int y = click.getY();
 					
-					x = x * 8 / game.getWidth();
-					y = y * 8 / game.getHeight();
-					
-					positionLabel.setText("x: " + x + "\ty: " + y);
-					
-					game.select(y, x);
 				}
 
 				public void mousePressed(MouseEvent press)
@@ -61,7 +53,15 @@ public class ChessPanel extends JPanel
 				@Override
 				public void mouseReleased(MouseEvent release)
 				{
+					int x = release.getX();
+					int y = release.getY();
 					
+					x = x * 8 / game.getWidth();
+					y = y * 8 / game.getHeight();
+					
+					positionLabel.setText("x: " + x + "\ty: " + y);
+					
+					game.select(y, x);
 				}
 
 				@Override
