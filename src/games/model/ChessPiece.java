@@ -80,7 +80,7 @@ public abstract class ChessPiece
 			int row = firstPos[0] + verticalDirection;
 			int col = firstPos[1] + horizontalDirection;
 			
-			while (row != secondPos[0])
+			while (row != secondPos[0] || col != secondPos[1])
 			{
 				int [] scanPosition = {row, col};
 				target = getPieceAtPosition(scanPosition);
