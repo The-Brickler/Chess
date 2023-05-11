@@ -30,7 +30,7 @@ public class ChessPawn extends ChessPiece
 		
 		if (Math.abs(colDifference) > 0 && Math.abs(colDifference) <= 1 && Math.abs(colDifference) == 1) // check for taking pieces diagonally
 		{	
-			if ((rowDifference > 0 && team == BLACK) || (rowDifference < 0 && team == WHITE))
+			if ((rowDifference > 0 && rowDifference < 2 && team == BLACK) || (rowDifference < 0 && rowDifference > -2 && team == WHITE))
 			{
 				if (!target.getClass().getSimpleName().equals("ChessEmpty") && target.getTeam() != team)
 				{
