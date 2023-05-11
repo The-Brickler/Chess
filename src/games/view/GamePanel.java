@@ -163,12 +163,15 @@ public class GamePanel extends JPanel
 	
 	public void select(int row, int col)
 	{
-		if (selected[0] == -1 || selected[1] == -1)
+		if (selected[0] == -1 || selected[1] == -1) // if there's not prior selection
 		{
-			selected[0] = row;
-			selected[1] = col;
+			if (!app.getImageFor(row, col).equals(""))
+			{
+				selected[0] = row;
+				selected[1] = col;
+			}
 		}
-		else if (selected[0] == row && selected[1] == col)
+		else if (selected[0] == row && selected[1] == col) // if reclicking the same spot
 		{
 			selected[0] = -1;
 			selected[1] = -1;
