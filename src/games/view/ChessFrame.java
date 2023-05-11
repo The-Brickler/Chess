@@ -26,4 +26,10 @@ public class ChessFrame extends JFrame
 		this.setResizable(false);
 		this.setVisible(true);
 	}
+
+	public void showPromoteDialog(int row, int col)
+	{
+		panel.showPromoteDialog(row, col);
+		
+	}
 }

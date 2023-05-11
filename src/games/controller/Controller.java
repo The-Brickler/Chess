@@ -58,15 +58,20 @@ public class Controller
 	
 	public void playerMove(int firstRow, int firstCol, int secondRow, int secondCol)
 	{
-		firstRow = Math.abs(firstRow - 8);
-		secondRow = Math.abs(secondRow - 8);
+		int modFirstRow = Math.abs(firstRow - 8);
+		int modSecondRow = Math.abs(secondRow - 8);
 		
 		char firstColChar = (char) ('a' + firstCol);
 		char secondColChar = (char) ('a' + secondCol);
 		
-		String move = "" + firstColChar + firstRow + secondColChar + secondRow;
+		String move = "" + firstColChar + modFirstRow + secondColChar + modSecondRow;
 		System.out.println(move);
 		board.makeMove(move);
+		
+		if (board.getPieceAt(new int [] {secondRow, secondCol}).canPromote())
+		{
+			frame.showPromoteDialog(secondRow, secondCol);
+		}
 	}
 	
 	public String getImageFor(int row, int col)
@@ -97,5 +102,11 @@ public class Controller
 		int [] secondPos = {secondRow, secondCol};
 		
 		return board.getPieceAt(firstPos).validateMove(firstPos, secondPos);
+	}
+
+	public void promote(int[] nextPromotion, String newPiece)
+	{
+		board.promotePieceAt(nextPromotion, newPiece);
+		
 	}
 }
