@@ -1,4 +1,4 @@
-package games.model.chess;
+package games.model;
 
 public abstract class ChessPiece
 {

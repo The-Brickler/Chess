@@ -1,10 +1,10 @@
-package games.model.chess;
+package games.model;
 
-public class ChessQueen extends ChessPiece
+public class ChessEmpty extends ChessPiece
 {
-private int team;
+	private int team;
 	
-	public ChessQueen(int team, ChessBoard board)
+	public ChessEmpty(int team, ChessBoard board)
 	{
 		super(team, board);
 		this.team = team;
@@ -12,7 +12,7 @@ private int team;
 	
 	public String getAsChar()
 	{
-		String letter = "q";
+		String letter = "e";
 		
 		if (team == ChessPiece.WHITE)
 		{
@@ -25,6 +25,6 @@ private int team;
 	@Override
 	public boolean validateMove(int[] firstPos, int[] secondPos)
 	{
-		return checkBasicMovement(firstPos, secondPos, true, true);
+		return false;
 	}
 }
