@@ -1,4 +1,4 @@
-package games.model.chess;
+package games.model;
 
 import java.io.IOException;
 

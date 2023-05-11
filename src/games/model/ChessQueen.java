@@ -1,10 +1,10 @@
-package games.model.chess;
+package games.model;
 
-public class ChessBishop extends ChessPiece
+public class ChessQueen extends ChessPiece
 {
-	private int team;
+private int team;
 	
-	public ChessBishop(int team, ChessBoard board)
+	public ChessQueen(int team, ChessBoard board)
 	{
 		super(team, board);
 		this.team = team;
@@ -12,7 +12,7 @@ public class ChessBishop extends ChessPiece
 	
 	public String getAsChar()
 	{
-		String letter = "b";
+		String letter = "q";
 		
 		if (team == ChessPiece.WHITE)
 		{
@@ -25,6 +25,6 @@ public class ChessBishop extends ChessPiece
 	@Override
 	public boolean validateMove(int[] firstPos, int[] secondPos)
 	{
-		return checkBasicMovement(firstPos, secondPos, false, true);
+		return checkBasicMovement(firstPos, secondPos, true, true);
 	}
 }

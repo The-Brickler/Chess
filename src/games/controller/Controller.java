@@ -1,8 +1,8 @@
 package games.controller;
 
-import games.model.chess.ChessAI;
-import games.model.chess.ChessBoard;
-import games.model.chess.ChessPiece;
+import games.model.ChessAI;
+import games.model.ChessBoard;
+import games.model.ChessPiece;
 import games.view.ChessFrame;
 
 import java.util.Scanner;
