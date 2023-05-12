@@ -4,6 +4,7 @@ import games.model.ChessAI;
 import games.model.ChessBoard;
 import games.model.ChessPiece;
 import games.view.ChessFrame;
+import games.view.ChessPanel;
 
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class Controller
 	private ChessBoard board;
 	
 	private ChessFrame frame;
+	private ChessPanel panel;
 	
 	public void start()
 	{	
@@ -39,10 +41,11 @@ public class Controller
 		}
 		*/
 		
-		ai.closeProcess();
+		//ai.closeProcess();
 		scanner.close();
 		
 		frame = new ChessFrame(this);
+		panel = (ChessPanel) frame.getContentPane();
 	}
 	
 	public void handleError(Exception error)
@@ -50,10 +53,18 @@ public class Controller
 		JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
 	}
 	
-	private void makeAIMove() throws InterruptedException
+	public void AIMove() throws InterruptedException
 	{
-		board.makeMove(ai.getNextMove(1000));
-		Thread.sleep(1500);
+		String nextMove = ai.getNextMove(1000);
+		if (nextMove.equals("gameover"))
+		{
+			frame.gameEnd();
+		}
+		else
+		{
+			board.makeMove(ai.getNextMove(500));
+			Thread.sleep(1500);
+		}
 	}
 	
 	public void playerMove(int firstRow, int firstCol, int secondRow, int secondCol)
@@ -67,11 +78,15 @@ public class Controller
 		String move = "" + firstColChar + modFirstRow + secondColChar + modSecondRow;
 		System.out.println(move);
 		board.makeMove(move);
+		panel.setCanMove(false);
+		panel.updateDisplay();
 		
 		if (board.getPieceAt(new int [] {secondRow, secondCol}).canPromote())
 		{
 			frame.showPromoteDialog(secondRow, secondCol);
 		}
+		
+		frame.madeMove();
 	}
 	
 	public String getImageFor(int row, int col)

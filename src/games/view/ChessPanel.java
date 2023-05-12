@@ -5,6 +5,10 @@ import games.controller.Controller;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +16,8 @@ import javax.swing.JPanel;
 
 public class ChessPanel extends JPanel
 {
+	
+	private boolean canMove;
 	
 	private Controller app;
 	
@@ -31,6 +37,8 @@ public class ChessPanel extends JPanel
 	{
 		super();
 		this.app = app;
+		
+		setCanMove(true);
 		
 		game = new GamePanel(this.app);
 		nextPromotion = new int [] {-1, -1};
@@ -83,8 +91,10 @@ public class ChessPanel extends JPanel
 					y = y * 8 / game.getHeight();
 					
 					//positionLabel.setText("x: " + x + "\ty: " + y);
-					
-					game.select(y, x);
+					if (canMove)
+					{
+						game.select(y, x);
+					}
 				}
 
 				@Override
@@ -128,5 +138,43 @@ public class ChessPanel extends JPanel
 		promotePanel.setVisible(true);
 		this.nextPromotion[0] = row;
 		this.nextPromotion[1] = col;
+	}
+	
+	public void madeMove()
+	{
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					app.AIMove();
+					game.updateDisplay();
+					setCanMove(true);
+				}
+				catch (InterruptedException error)
+				{
+					app.handleError(error);
+				}
+			}
+		}).start();
+	}
+
+	public void gameEnd()
+	{
+		setCanMove(false);
+		
+	}
+
+	public void setCanMove(boolean canMove)
+	{
+		this.canMove = canMove;
+	}
+
+	public void updateDisplay()
+	{
+		game.updateDisplay();
+		
 	}
 }

@@ -88,7 +88,7 @@ public class ProcessController
 		}
 		catch (IOException error)
 		{
-			app.handleError(error);
+			//Game ended
 		}
 		catch (NullPointerException error)
 		{
@@ -121,17 +121,9 @@ public class ProcessController
 				text = reader.readLine();
 			}
 		}
-		catch (IOException error)
+		catch (Exception error)
 		{
-			app.handleError(error);
-		}
-		catch (InterruptedException error)
-		{
-			app.handleError(error);
-		}
-		catch (NullPointerException error)
-		{
-			app.handleError(error);
+			output = "over";
 		}
 		
 		return output;
