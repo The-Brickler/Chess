@@ -125,6 +125,8 @@ public class ChessBoard
 		int secondRow = board.length - Integer.parseInt(move.substring(3));
 		int secondCol = letterToNumber(move.charAt(2));
 		
+		boolean promote = move.length() > 4;
+		
 		ChessPiece target = board[firstRow][firstCol];
 		
 		int [] firstPos = {firstRow, firstCol};
@@ -136,6 +138,28 @@ public class ChessBoard
 			target.madeMove();
 			board[secondRow][secondCol] = target;
 			board[firstRow][firstCol] = new ChessEmpty(ChessPiece.NOTEAM, this);
+			if (promote && target.canPromote())
+			{
+				String newPiece = "";
+				if (move.substring(4).equals("q"))
+				{
+					newPiece = "queen";
+				}
+				if (move.substring(4).equals("n"))
+				{
+					newPiece = "knight";
+				}
+				if (move.substring(4).equals("b"))
+				{
+					newPiece = "bishop";
+				}
+				if (move.substring(4).equals("r"))
+				{
+					newPiece = "rook";
+				}
+				
+				promotePieceAt(secondPos, newPiece);
+			}
 		}
 		else
 		{
