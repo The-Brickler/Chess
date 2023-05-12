@@ -119,6 +119,7 @@ public class ChessBoard
 	
 	public void makeMove(String move)
 	{
+		move = move.trim();
 		int firstRow = board.length - Integer.parseInt(move.substring(1, 2));
 		int firstCol = letterToNumber(move.charAt(0));
 		int secondRow = board.length - Integer.parseInt(move.substring(3));

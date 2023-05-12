@@ -32,4 +32,16 @@ public class ChessFrame extends JFrame
 		panel.showPromoteDialog(row, col);
 		
 	}
+
+	public void madeMove()
+	{
+		panel.madeMove();
+		
+	}
+
+	public void gameEnd()
+	{
+		panel.gameEnd();
+		
+	}
 }

@@ -37,8 +37,20 @@ public class ChessAI
 		process.sendCommand("go movetime " + waitTime);
 		
 		String output = process.getOutput(waitTime + 100);
-		output = output.split("bestmove ")[1]; //gets everything after "bestmove "
-		output = output.split(" ")[0]; //get everything before the next space
+		System.out.println(output);
+		if (output.indexOf("bestmove") > -1)
+		{
+			output = output.split("bestmove ")[1]; //gets everything after "bestmove "
+			if (output.indexOf(" ") > -1)
+			{
+				output = output.split(" ")[0]; //get everything before the next space
+			}
+		}
+		else
+		{
+			output = "gameover";
+		}
+		
 		
 		return output;
 	}
