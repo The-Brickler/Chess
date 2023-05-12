@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 public class ChessPanel extends JPanel
 {
@@ -29,6 +30,8 @@ public class ChessPanel extends JPanel
 	private JButton queenButton;
 	private JButton knightButton;
 
+	private SpringLayout layout;
+	
 	private int [] nextPromotion;
 	
 	//private JLabel positionLabel;
@@ -37,6 +40,8 @@ public class ChessPanel extends JPanel
 	{
 		super();
 		this.app = app;
+		
+		layout = new SpringLayout();
 		
 		setCanMove(true);
 		
@@ -58,13 +63,17 @@ public class ChessPanel extends JPanel
 	{
 		//this.add(positionLabel);
 		this.add(game);
+		this.setLayout(layout);
 		
 		promotePanel.add(rookButton);
 		promotePanel.add(bishopButton);
 		promotePanel.add(knightButton);
 		promotePanel.add(queenButton);
 		this.add(promotePanel);
-		promotePanel.setVisible(false);
+		rookButton.setEnabled(false);
+		bishopButton.setEnabled(false);
+		knightButton.setEnabled(false);
+		queenButton.setEnabled(false);
 	}
 	
 	private void setupListeners()
@@ -122,7 +131,11 @@ public class ChessPanel extends JPanel
 		{
 			app.promote(nextPromotion, newPiece);
 		}
-		promotePanel.setVisible(false);
+		rookButton.setEnabled(false);
+		bishopButton.setEnabled(false);
+		knightButton.setEnabled(false);
+		queenButton.setEnabled(false);
+		
 		nextPromotion[0] = -1;
 		nextPromotion[1] = -1;
 		game.updateDisplay();
@@ -130,12 +143,21 @@ public class ChessPanel extends JPanel
 
 	private void setupLayout()
 	{
+		layout.putConstraint(SpringLayout.NORTH, game, 10, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.WEST, game, 10, SpringLayout.WEST, this);
 		
+		layout.putConstraint(SpringLayout.NORTH, promotePanel, 10, SpringLayout.SOUTH, game);
+		layout.putConstraint(SpringLayout.WEST, promotePanel, 0, SpringLayout.WEST, game);
+		layout.putConstraint(SpringLayout.SOUTH, promotePanel, 50, SpringLayout.NORTH, promotePanel);
+		layout.putConstraint(SpringLayout.EAST, promotePanel, 0, SpringLayout.EAST, game);
 	}
 
 	public void showPromoteDialog(int row, int col)
 	{
-		promotePanel.setVisible(true);
+		rookButton.setEnabled(true);
+		bishopButton.setEnabled(true);
+		knightButton.setEnabled(true);
+		queenButton.setEnabled(true);
 		this.nextPromotion[0] = row;
 		this.nextPromotion[1] = col;
 	}

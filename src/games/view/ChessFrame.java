@@ -21,7 +21,7 @@ public class ChessFrame extends JFrame
 	{
 		this.setContentPane(panel);;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1200, 900);
+		this.setSize(800, 600);
 		this.setTitle("Chess");
 		this.setResizable(false);
 		this.setVisible(true);
