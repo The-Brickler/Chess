@@ -32,6 +32,8 @@ public class ChessPanel extends JPanel
 
 	private SpringLayout layout;
 	
+	private JLabel status;
+	
 	private int [] nextPromotion;
 	
 	//private JLabel positionLabel;
@@ -54,6 +56,8 @@ public class ChessPanel extends JPanel
 		queenButton = new JButton("Queen");
 		knightButton = new JButton("Knight");
 		
+		status = new JLabel("Click a white piece to move!");
+		
 		setupPanel();
 		setupListeners();
 		setupLayout();
@@ -74,6 +78,9 @@ public class ChessPanel extends JPanel
 		bishopButton.setEnabled(false);
 		knightButton.setEnabled(false);
 		queenButton.setEnabled(false);
+		
+		status.setHorizontalAlignment(JLabel.CENTER);
+		this.add(status);
 	}
 	
 	private void setupListeners()
