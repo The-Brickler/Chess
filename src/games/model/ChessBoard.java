@@ -120,10 +120,23 @@ public class ChessBoard
 	public void makeMove(String move)
 	{
 		move = move.trim();
-		int firstRow = board.length - Integer.parseInt(move.substring(1, 2));
-		int firstCol = letterToNumber(move.charAt(0));
-		int secondRow = board.length - Integer.parseInt(move.substring(3));
-		int secondCol = letterToNumber(move.charAt(2));
+		
+		int firstRow;
+		int firstCol;
+		int secondRow;
+		int secondCol;
+		
+		try
+		{
+			firstRow = board.length - Integer.parseInt(move.substring(1, 2));
+			firstCol = letterToNumber(move.charAt(0));
+			secondRow = board.length - Integer.parseInt(move.substring(3));
+			secondCol = letterToNumber(move.charAt(2));
+		}
+		catch (NumberFormatException error)
+		{
+			return;
+		}
 		
 		boolean promote = move.length() > 4;
 		

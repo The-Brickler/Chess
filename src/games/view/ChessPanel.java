@@ -2,6 +2,8 @@ package games.view;
 
 import games.controller.Controller;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -41,10 +43,16 @@ public class ChessPanel extends JPanel
 	
 	//private JLabel positionLabel;
 	
+	private static final Color backgroundColor = new Color(2, 4, 15);
+	private static final Color highlightColor = new Color(0, 38, 66);
+	private static final Color textColor = new Color(145, 166, 255);
+	
 	public ChessPanel(Controller app)
 	{
 		super();
 		this.app = app;
+		
+		this.setBackground(backgroundColor);
 		
 		layout = new SpringLayout();
 		
@@ -54,6 +62,8 @@ public class ChessPanel extends JPanel
 		nextPromotion = new int [] {-1, -1};
 		
 		promotePanel = new JPanel(new GridLayout(1, 0));
+		promotePanel.setBackground(highlightColor);
+		
 		rookButton = new JButton("Rook");
 		bishopButton = new JButton("Bishop");
 		queenButton = new JButton("Queen");
@@ -61,7 +71,9 @@ public class ChessPanel extends JPanel
 		
 		newGameButton = new JButton ("New Game");
 		
-		status = new JLabel("Click a white piece to move!");
+		status = new JLabel("<html><b>Click a white piece to move!</b></html>");
+		status.setForeground(textColor);
+		status.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
 		
 		setupPanel();
 		setupListeners();
