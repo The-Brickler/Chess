@@ -178,7 +178,10 @@ public class GamePanel extends JPanel
 		}
 		else
 		{
-			app.playerMove(selected[0], selected[1], row, col);
+			if (app.validate(selected[0], selected[1], row, col))
+			{
+				app.playerMove(selected[0], selected[1], row, col);
+			}
 			
 			selected[0] = -1;
 			selected[1] = -1;
