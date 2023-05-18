@@ -29,6 +29,8 @@ public class ChessPanel extends JPanel
 	private JButton bishopButton;
 	private JButton queenButton;
 	private JButton knightButton;
+	
+	private JButton newGameButton;
 
 	private SpringLayout layout;
 	
@@ -56,6 +58,8 @@ public class ChessPanel extends JPanel
 		queenButton = new JButton("Queen");
 		knightButton = new JButton("Knight");
 		
+		newGameButton = new JButton ("New Game");
+		
 		status = new JLabel("Click a white piece to move!");
 		
 		setupPanel();
@@ -81,6 +85,8 @@ public class ChessPanel extends JPanel
 		
 		status.setHorizontalAlignment(JLabel.CENTER);
 		this.add(status);
+		
+		this.add(newGameButton);
 	}
 	
 	private void setupListeners()
@@ -134,6 +140,7 @@ public class ChessPanel extends JPanel
 	
 	private void promote(String newPiece)
 	{
+		madeMove();
 		if (nextPromotion[0] != -1)
 		{
 			app.promote(nextPromotion, newPiece);
@@ -157,6 +164,15 @@ public class ChessPanel extends JPanel
 		layout.putConstraint(SpringLayout.WEST, promotePanel, 0, SpringLayout.WEST, game);
 		layout.putConstraint(SpringLayout.SOUTH, promotePanel, 50, SpringLayout.NORTH, promotePanel);
 		layout.putConstraint(SpringLayout.EAST, promotePanel, 0, SpringLayout.EAST, game);
+		
+		layout.putConstraint(SpringLayout.NORTH, status, 10, SpringLayout.SOUTH, promotePanel);
+		layout.putConstraint(SpringLayout.EAST, status, 0, SpringLayout.EAST, promotePanel);
+		layout.putConstraint(SpringLayout.WEST, status, 0, SpringLayout.WEST, promotePanel);
+		
+		layout.putConstraint(SpringLayout.WEST, newGameButton, 30, SpringLayout.EAST, game);
+		layout.putConstraint(SpringLayout.EAST, newGameButton, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.NORTH, newGameButton, 0, SpringLayout.NORTH, game);
+		layout.putConstraint(SpringLayout.SOUTH, newGameButton, 100, SpringLayout.NORTH, newGameButton);
 	}
 
 	public void showPromoteDialog(int row, int col)
@@ -171,6 +187,7 @@ public class ChessPanel extends JPanel
 	
 	public void madeMove()
 	{
+		setStatus("Calculating Move.....");
 		new Thread(new Runnable()
 		{
 			@Override
@@ -181,6 +198,7 @@ public class ChessPanel extends JPanel
 					app.AIMove();
 					game.updateDisplay();
 					setCanMove(true);
+					setStatus("Click a white piece to move!");
 				}
 				catch (InterruptedException error)
 				{
@@ -193,6 +211,7 @@ public class ChessPanel extends JPanel
 	public void gameEnd()
 	{
 		setCanMove(false);
+		setStatus("GAME OVER");
 		
 	}
 
@@ -205,5 +224,10 @@ public class ChessPanel extends JPanel
 	{
 		game.updateDisplay();
 		
+	}
+
+	public void setStatus(String status)
+	{
+		this.status.setText(status);
 	}
 }

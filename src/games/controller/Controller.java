@@ -83,10 +83,15 @@ public class Controller
 		
 		if (board.getPieceAt(new int [] {secondRow, secondCol}).canPromote())
 		{
+			panel.setStatus("Select a promotion");
+			panel.setCanMove(false);
 			frame.showPromoteDialog(secondRow, secondCol);
 		}
+		else
+		{
+			frame.madeMove();
+		}
 		
-		frame.madeMove();
 	}
 	
 	public String getImageFor(int row, int col)
