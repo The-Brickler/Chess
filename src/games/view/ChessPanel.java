@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -136,6 +137,8 @@ public class ChessPanel extends JPanel
 			bishopButton.addActionListener(click -> promote("bishop"));
 			knightButton.addActionListener(click -> promote("knight"));
 			queenButton.addActionListener(click -> promote("queen"));
+			
+			newGameButton.addActionListener(click -> resetGame());
 	}
 	
 	private void promote(String newPiece)
@@ -229,5 +232,24 @@ public class ChessPanel extends JPanel
 	public void setStatus(String status)
 	{
 		this.status.setText(status);
+	}
+	
+	private void resetGame()
+	{
+		if (JOptionPane.showConfirmDialog(this, "Do you want to reset?", "New Game", JOptionPane.YES_NO_OPTION) == 0)
+		{
+			app.reset();
+		}
+		
+		try
+		{
+			Thread.sleep(200);
+		}
+		catch (InterruptedException error)
+		{
+			app.handleError(error);
+		}
+		
+		updateDisplay();
 	}
 }

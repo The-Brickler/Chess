@@ -129,4 +129,11 @@ public class Controller
 		board.promotePieceAt(nextPromotion, newPiece);
 		
 	}
+	
+	public void reset()
+	{
+		board = new ChessBoard();
+		ai.closeProcess();
+		ai = new ChessAI(this, board);
+	}
 }
