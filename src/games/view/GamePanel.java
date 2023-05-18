@@ -165,7 +165,7 @@ public class GamePanel extends JPanel
 	{
 		if (selected[0] == -1 || selected[1] == -1) // if there's not prior selection
 		{
-			if (!app.getImageFor(row, col).equals(""))
+			if (!(app.getImageFor(row, col).equals("") || app.getImageFor(row, col).substring(0, 5).equals("black")))
 			{
 				selected[0] = row;
 				selected[1] = col;
